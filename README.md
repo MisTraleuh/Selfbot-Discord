@@ -11,7 +11,7 @@
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/CatalanNathan/SelfbotDiscord
+$ git clone https://github.com/CatalanNathan/Selfbot-Discord
 
 # Go into the repository
 $ cd SelfbotDiscord
