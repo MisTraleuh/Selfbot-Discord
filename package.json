@@ -5,14 +5,14 @@
   "main": "start.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CatalanNathan/SelfbotDiscord.git"
+    "url": "git+https://github.com/CatalanNathan/Selfbot-Discord"
   },
   "author": "MisTrale",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/CatalanNathan/SelfbotDiscord/issues"
+    "url": "https://github.com/CatalanNathan/Selfbot-Discord/issues"
   },
-  "homepage": "https://github.com/CatalanNathan/SelfbotDiscord#readme",
+  "homepage": "https://github.com/CatalanNathan/Selfbot-Discord#readme",
   "dependencies": {
     "axios": "^0.27.2",
     "discord-bettermarkdown": "^1.2.0",
@@ -28,7 +28,7 @@
   },
   "scripts": {
     "lint": "eslint --fix",
-    "start": "eslint . && node ."
+    "start": "eslint . ; node ."
   },
   "type": "module"
 }
