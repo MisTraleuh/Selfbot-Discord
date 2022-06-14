@@ -15,9 +15,11 @@ async function infoUser (client, message, process) {
 
   if (!user) { return message.channel.send('You must mention a user') }
 
+  await message.delete()
+
   const messageUser = new BetterMarkdown()
 
-  messageUser.format('🔎 Informations to the user', 'UNDERLINE', 'RED', 'INDIGO', false)
+  messageUser.format('🔎 Informations to the user', 'UNDERLINE', 'RED', 'GRAY', false)
 
   messageUser.format('', 'BOLD', 'RED', null, false)
   messageUser.format('\n\n📝 · Username : ', 'BOLD', 'YELLOW', null, false)
@@ -32,6 +34,11 @@ async function infoUser (client, message, process) {
   messageUser.format('📝 · Created at : ', 'BOLD', 'YELLOW', null, false)
   messageUser.format(user.createdAt.toLocaleString(), 'BOLD', 'BLUE', 'DARKBLUE', true)
 
+  messageUser.format('🫂 · Mutual Guild : ', 'BOLD', 'YELLOW', null, true)
+
+  await client.guilds.cache.filter(guild => guild.members.cache.has(user.id)).forEach(guild => {
+    messageUser.format('    ' + guild.name, 'BOLD', 'BLUE', 'DARKBLUE', true)
+  })
   await message.channel.send(messageUser.toCodeblock())
 }
 
@@ -40,6 +47,7 @@ async function infoServ (client, message, process) {
 
   if (!message.guild) { return message.channel.send('This guild is not a guild server') }
 
+  await message.delete()
   const server = message.guild
 
   const owner = client.users.cache.find(user => user.id === server.ownerId)
