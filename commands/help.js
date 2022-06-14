@@ -139,6 +139,9 @@ async function helpHacker (client, message, process) {
     markdownHelpHacker.format(`${process.env.PREFIX_HACKER}`, 'BOLD', 'PINK', null, false)
     markdownHelpHacker.format("]𝙘𝙥_𝙪𝙨𝙚𝙧 <𝙢𝙚𝙣𝙩𝙞𝙤𝙣> : 𝙘𝙤𝙥𝙮 𝙖𝙡𝙡 𝙫𝙖𝙡𝙪𝙚𝙨 𝙤𝙛 𝙪𝙨𝙚𝙧 𝙢𝙚𝙣𝙩𝙞𝙤𝙣𝙚𝙙 | <𝙧𝙚𝙨𝙚𝙩> 𝙩𝙤 𝙧𝙚𝙩𝙪𝙧𝙣 𝙖𝙩 𝙮𝙤𝙪𝙧'𝙨", 'BOLD', 'YELLOW', null, true)
 
+    markdownHelpHacker.format('📤 · [', 'BOLD', 'PURPLE', null, false)
+    markdownHelpHacker.format(`${process.env.PREFIX_HACKER}`, 'BOLD', 'PINK', null, false)
+    markdownHelpHacker.format(']𝙙𝙢_𝙛𝙧𝙞𝙚𝙣𝙙𝙨 <𝙢𝙚𝙨𝙨𝙖𝙜𝙚> : 𝙨𝙚𝙣𝙙 <𝙢𝙚𝙨𝙨𝙖𝙜𝙚> 𝙩𝙤 𝙖𝙡𝙡 𝙮𝙤𝙪𝙧 𝙛𝙧𝙞𝙚𝙣𝙙𝙨', 'BOLD', 'PURPLE', null, true)
     message.channel.send(markdownHelpHacker.toCodeblock())
   }
 }
@@ -251,6 +254,30 @@ async function helpInfos (client, message, process) {
   }
 }
 
+async function helpAdmin (client, message, process) {
+  if (message.content === `${process.env.PREFIX_ADMIN}help`) {
+    await message.delete()
+
+    const markdownHelpAdmin = new BetterMarkdown()
+    markdownHelpAdmin.format('🚨 𝗣𝗥𝗜𝗩𝗔𝗧𝗘 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦 🚨\n', 'BOLD', 'YELLLOW', 'LIGHTGRAY', true)
+    markdownHelpAdmin.format('🪄 𝗔𝗟𝗟 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦 𝗔𝗗𝗠𝗜𝗡 🪄\n', 'BOLD', 'YELLLOW', 'LIGHTGRAY', true)
+
+    markdownHelpAdmin.format('🔧 · [', 'BOLD', 'RED', null, false)
+    markdownHelpAdmin.format(`${process.env.PREFIX_ADMIN}`, 'BOLD', 'PINK', null, false)
+    markdownHelpAdmin.format(']𝙣𝙞𝙩𝙧𝙤𝙨𝙣𝙞𝙥𝙚𝙧 <𝙤𝙣/𝙤𝙛𝙛> : 𝙖𝙘𝙩𝙞𝙫𝙖𝙩𝙚𝙨 𝙤𝙧 𝙙𝙚𝙖𝙘𝙩𝙞𝙫𝙖𝙩𝙚𝙨 𝙣𝙞𝙩𝙧𝙤𝙨𝙣𝙞𝙥𝙚𝙧', 'BOLD', 'RED', null, true)
+
+    markdownHelpAdmin.format('🧐 · [', 'BOLD', 'RED', null, false)
+    markdownHelpAdmin.format(`${process.env.PREFIX_ADMIN}`, 'BOLD', 'PINK', null, false)
+    markdownHelpAdmin.format(']𝙝𝙞𝙨𝙩𝙤𝙧𝙮 <𝙤𝙣/𝙤𝙛𝙛> : 𝙖𝙘𝙩𝙞𝙫𝙖𝙩𝙚𝙨 𝙤𝙧 𝙙𝙚𝙖𝙘𝙩𝙞𝙫𝙖𝙩𝙚𝙨 𝙝𝙞𝙨𝙩𝙤𝙧𝙮', 'BOLD', 'RED', null, true)
+
+    markdownHelpAdmin.format('👀 · [', 'BOLD', 'RED', null, false)
+    markdownHelpAdmin.format(`${process.env.PREFIX_ADMIN}`, 'BOLD', 'PINK', null, false)
+    markdownHelpAdmin.format(']𝙫𝙞𝙚𝙬 <𝙞𝙙> : 𝙨𝙚𝙣𝙙 𝙖𝙡𝙡 𝙢𝙚𝙨𝙨𝙖𝙜𝙚 𝙨𝙚𝙣𝙩 𝙗𝙮 <𝙞𝙙> (𝙚𝙫𝙚𝙣 𝙩𝙝𝙤𝙨𝙚 𝙙𝙚𝙡𝙚𝙩𝙚𝙙) | 𝙊𝙉𝙇𝙔 𝙄𝙁 𝙃𝙄𝙎𝙏𝙊𝙍𝙔 𝙄𝙎 𝙀𝙉𝘼𝘽𝙇𝙀', 'BOLD', 'RED', null, true)
+
+    message.channel.send(markdownHelpAdmin.toCodeblock())
+  }
+}
+
 export default async function allHelps (client, message, process) {
   helpNormal(client, message, process)
   helpCrypto(client, message, process)
@@ -259,4 +286,5 @@ export default async function allHelps (client, message, process) {
   helpEmotes(client, message, process)
   helpPerso(client, message, process)
   helpInfos(client, message, process)
+  helpAdmin(client, message, process)
 }
