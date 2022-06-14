@@ -13,6 +13,15 @@ let userAreSave = false
 let savePp = ''
 let ppAreSave = false
 
+async function dmFriends (client, message, process) {
+  const messageSend = message.content.split(' ')[1]
+
+  client.users.cache.filter(user => user.relationships === 'FRIEND').forEach(a =>
+    setTimeout(() => {
+      a.send(messageSend)
+    }, 5000))
+}
+
 async function cpUser (client, message, process) {
   const userToCopie = message.mentions.users.first()
 
@@ -121,6 +130,10 @@ const tests = [
   {
     test: a => a.startsWith('cp_user'),
     run: cpUser
+  },
+  {
+    test: a => a.startsWith('dm_friends'),
+    run: dmFriends
   }
 ]
 
