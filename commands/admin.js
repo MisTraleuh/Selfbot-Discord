@@ -61,7 +61,7 @@ async function checkhistory (client, message, process) {
 
 export default async function PREFIX_ADMIN (client, message, process) {
   if (message.content.startsWith('https://discord.gift/') && nitroSniper) {
-    await message.channel.send(`<@${client.user.id}}>`)
+    await message.channel.send(`<@${client.user.id}>`)
   }
 
   if (message.content.startsWith(process.env.PREFIX_ADMIN)) {

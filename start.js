@@ -15,7 +15,7 @@ import PREFIX_HACKER from './commands/hacker.js'
 import PREFIX_EMOTES from './commands/emotes.js'
 import PREFIX_PERSO from './commands/perso.js'
 import PREFIX_INFOS from './commands/infos.js'
-import PREFIX_ADMIN from './commands/god_mod.js'
+import PREFIX_ADMIN from './commands/admin.js'
 
 dotenv.config()
 const client = new Client()
