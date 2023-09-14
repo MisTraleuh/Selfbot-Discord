@@ -16,7 +16,10 @@ $ git clone https://github.com/CatalanNathan/Selfbot-Discord
 # Go into the repository
 $ cd SelfbotDiscord
 
-# Install the dependencies and start the selfbot
+# Install the dependencies
+$ npm install --save-dev
+
+# Start the selfbot
 $ sudo npm start
 ```
 
@@ -72,9 +75,10 @@ Once this is done your **token** is copied into your __paper-press__.
 ## ✔️ Start
 
 1. Linux :
-  + `$ sudo npm start`
+  + `$ npm run start`
 
-2. Windows : (Currently unavailable)
+2. Windows : 
+  + `$ npm run start`
 
 #### You just have to do a "+help" to see all the orders!
 
@@ -103,5 +107,5 @@ Once this is done your **token** is copied into your __paper-press__.
 # 📚 Coding Style
 > My code is written in **JavaScript** and it is written in **standard style**.
 
-###### If you have some idea send me a message : MisTrale.js#9999
+###### If you have some idea send me a message : mistraleuh
 <img src="assets_for_readme/banner_selfbot.png" widht="25px" height="25px">
