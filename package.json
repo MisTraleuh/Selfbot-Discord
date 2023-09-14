@@ -28,7 +28,7 @@
   },
   "scripts": {
     "lint": "eslint --fix",
-    "start": "eslint . ; node ."
+    "start": "node ."
   },
   "type": "module"
 }
