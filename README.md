@@ -37,16 +37,16 @@ To read more [click here](https://support.discord.com/hc/en-us/articles/11500219
 - Add the following lines to the file:
 
 ```bash
-  TOKEN=<your token>
-  MDP=<your password> # Optional (if you want to use cp_user...)
-  PREFIX_NORMAL=+
-  PREFIX_CRYPTO=!
-  PREFIX_FUN=&
-  PREFIX_HACKER=*
-  PREFIX_EMOTES=$
-  PREFIX_PERSO=%
-  PREFIX_INFOS=?
-  PREFIX_ADMIN=@
+TOKEN=<your token>
+MDP=<your password> # Optional (if you want to use cp_user...)
+PREFIX_NORMAL=+
+PREFIX_CRYPTO=!
+PREFIX_FUN=&
+PREFIX_HACKER=*
+PREFIX_EMOTES=$
+PREFIX_PERSO=%
+PREFIX_INFOS=?
+PREFIX_ADMIN=@
 ```
 - To have your token connected to [discord.com](https://discord.com/) and paste this code into the console
 
@@ -103,6 +103,7 @@ Once this is done your **token** is copied into your __paper-press__.
 | <img src="assets_for_readme/comic.png" width="16" vertical-align="middle"/> Aboutme               |                Change your aboutme                |   <font style="color: green; font-size: 16px;">✓</font>    |
 | <img src="assets_for_readme/good.png" width="16" vertical-align="middle"/> Info_user               |         Give some information to a user         |  <font style="color: green; font-size: 16px;">✓</font>    |
 | <img src="assets_for_readme/nice.png" width="16" vertical-align="middle"/> Info_serv               |                           Give some information to a guild                           |   <font style="color: green; font-size: 16px;">✓</font>    |
+| <img src="assets_for_readme/nice.png" width="16" vertical-align="middle"/> Info_servAll               |                           Give some information to a guild (All channels, roles ID -> Name -> Type)                          |   <font style="color: green; font-size: 16px;">✓</font>    |
 
 # 📚 Coding Style
 > My code is written in **JavaScript** and it is written in **standard style**.
