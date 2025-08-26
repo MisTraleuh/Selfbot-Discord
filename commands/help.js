@@ -5,276 +5,193 @@
 ** all helps commands, for commands explications
 */
 
-import BetterMarkdown from 'discord-bettermarkdown'
+import { WebEmbed } from 'discord.js-selfbot-v13'
 
 import dotenv from 'dotenv'
 dotenv.config()
 
 async function helpNormal (client, message, process) {
   if (message.content === `${process.env.PREFIX_NORMAL}help`) {
-    const markdownHelpGeneral = new BetterMarkdown()
 
     await message.delete()
 
-    markdownHelpGeneral.format('✨ 𝗔𝗟𝗟 𝗖𝗔𝗧𝗘𝗚𝗢𝗥𝗜𝗘𝗦 𝗔𝗡𝗗 𝗣𝗥𝗘𝗙𝗜𝗫𝗦 ✨\n', 'UNDERLINE', 'YELLOW', 'DARKBLUE', true)
-
-    markdownHelpGeneral.format('🆘 · [', 'BOLD', 'CYAN', null, false)
-    markdownHelpGeneral.format(`${process.env.PREFIX_NORMAL}`, 'BOLD', 'PINK', null, false)
-    markdownHelpGeneral.format(']𝙝𝙚𝙡𝙥 : 𝙙𝙞𝙨𝙥𝙡𝙖𝙮𝙨 𝙩𝙝𝙚 𝙥𝙧𝙚𝙛𝙞𝙭𝙚𝙨9\n', 'BOLD', 'CYAN', null, true)
-
-    markdownHelpGeneral.format('💰 · [', 'BOLD', 'GRAY', null, false)
-    markdownHelpGeneral.format(`${process.env.PREFIX_CRYPTO}`, 'BOLD', 'PINK', null, false)
-    markdownHelpGeneral.format(']𝙝𝙚𝙡𝙥 | 𝙘𝙧𝙮𝙥𝙩𝙤\n', 'BOLD', 'GRAY', null, true)
-
-    markdownHelpGeneral.format('🤟 · [', 'BOLD', 'BLUE', null, false)
-    markdownHelpGeneral.format(`${process.env.PREFIX_FUN}`, 'BOLD', 'PINK', null, false)
-    markdownHelpGeneral.format(']𝙝𝙚𝙡𝙥 | 𝙛𝙪𝙣\n', 'BOLD', 'BLUE', null, true)
-
-    markdownHelpGeneral.format('👨‍💻 · [', 'BOLD', 'GREEN', null, false)
-    markdownHelpGeneral.format(`${process.env.PREFIX_HACKER}`, 'BOLD', 'PINK', null, false)
-    markdownHelpGeneral.format(']𝙝𝙚𝙡𝙥 | 𝙝𝙖𝙘𝙠𝙚𝙧\n', 'BOLD', 'GREEN', null, true)
-
-    markdownHelpGeneral.format('😂 · [', 'BOLD', 'RED', null, false)
-    markdownHelpGeneral.format(`${process.env.PREFIX_EMOTES}`, 'BOLD', 'PINK', null, false)
-    markdownHelpGeneral.format(']𝙝𝙚𝙡𝙥 | 𝙚𝙢𝙤𝙩𝙚𝙨\n', 'BOLD', 'RED', null, true)
-
-    markdownHelpGeneral.format('💬 · [', 'BOLD', 'WHITE', null, false)
-    markdownHelpGeneral.format(`${process.env.PREFIX_PERSO}`, 'BOLD', 'PINK', null, false)
-    markdownHelpGeneral.format(']𝙝𝙚𝙡𝙥 | 𝙥𝙚𝙧𝙨𝙤\n', 'BOLD', 'WHITE', null, true)
-
-    markdownHelpGeneral.format('❓ · [', 'BOLD', 'YELLOW', null, false)
-    markdownHelpGeneral.format(`${process.env.PREFIX_INFOS}`, 'BOLD', 'PINK', null, false)
-    markdownHelpGeneral.format(']𝙝𝙚𝙡𝙥 | 𝙞𝙣𝙛𝙤𝙨\n', 'BOLD', 'YELLOW', null, false)
-
-    message.channel.send(markdownHelpGeneral.toCodeblock())
+    const embed = new WebEmbed()
+      .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL() }) 
+      .setTitle('🤖 Mistrou Selfbot - Help Commands 🤖')
+      .setDescription(`
+Here the avaible command:
+🤖 · [${process.env.PREFIX_NORMAL}]help : displays the current prefixes
+💷 · [${process.env.PREFIX_CRYPTO}]help : displays all crypto commands
+😂 · [${process.env.PREFIX_FUN}]help : displays all fun commands
+🥷 · [${process.env.PREFIX_HACKER}]help : displays all hacker commands
+😃 · [${process.env.PREFIX_EMOTES}]help : displays all emotes commands
+🫂 · [${process.env.PREFIX_PERSO}]help : displays all perso commands
+🚀 · [${process.env.PREFIX_INFOS}]help : displays all infos commands
+  `)
+    .setColor('#FF69B4')
+    message.channel.send({
+      content: `${WebEmbed.hiddenEmbed}${embed}`,
+    })
   }
 }
 
 async function helpCrypto (client, message, process) {
   if (message.content === `${process.env.PREFIX_CRYPTO}help`) {
-    const markdownHelpCrypto = new BetterMarkdown()
 
     await message.delete()
 
-    markdownHelpCrypto.format('"💫 𝗔𝗟𝗟 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦 𝗖𝗥𝗬𝗣𝗧𝗢𝗦 💫\n', 'UNDERLINE', 'YELLOW', 'DARKBLUE', true)
+    const embed = new WebEmbed()
+    .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL() }) 
+    .setTitle('🤖 Mistrou Selfbot - Cryptos Commands 🤖')
+    .setDescription(`
+🪙 · [${process.env.PREFIX_CRYPTO}]crypto btc : Get the current price of btc
+💴 · [${process.env.PREFIX_CRYPTO}]crypto eth : Get the current price of eth
+💵 · [${process.env.PREFIX_CRYPTO}]crypto ltc : Get the current price of ltc
+💶 · [${process.env.PREFIX_CRYPTO}]crypto xrp : Get the current price of xrp
+💷 · [${process.env.PREFIX_CRYPTO}]crypto ada : Get the current price of ada
+`)
+    .setColor('#FF69B4')
 
-    markdownHelpCrypto.format('🪙 · [', 'BOLD', 'CYAN', null, false)
-    markdownHelpCrypto.format(`${process.env.PREFIX_CRYPTO}`, 'BOLD', 'PINK', null, false)
-    markdownHelpCrypto.format(']𝙘𝙧𝙮𝙥𝙩𝙤 𝙗𝙩𝙘 : 𝙂𝙞𝙫𝙚 𝙩𝙝𝙚 𝙥𝙧𝙞𝙘𝙚 𝙤𝙛 𝘽𝙩𝙘', 'BOLD', 'CYAN', null, true)
-
-    markdownHelpCrypto.format('💴 · [', 'BOLD', 'RED', null, false)
-    markdownHelpCrypto.format(`${process.env.PREFIX_CRYPTO}`, 'BOLD', 'PINK', null, false)
-    markdownHelpCrypto.format(']𝙘𝙧𝙮𝙥𝙩𝙤 𝙚𝙩𝙝 : 𝙂𝙞𝙫𝙚 𝙩𝙝𝙚 𝙥𝙧𝙞𝙘𝙚 𝙤𝙛 𝙀𝙩𝙝', 'BOLD', 'RED', null, true)
-
-    markdownHelpCrypto.format('💵 · [', 'BOLD', 'GRAY', null, false)
-    markdownHelpCrypto.format(`${process.env.PREFIX_CRYPTO}`, 'BOLD', 'PINK', null, false)
-    markdownHelpCrypto.format(']𝙘𝙧𝙮𝙥𝙩𝙤 𝙡𝙩𝙘 : 𝙂𝙞𝙫𝙚 𝙩𝙝𝙚 𝙥𝙧𝙞𝙘𝙚 𝙤𝙛 𝙇𝙩𝙘', 'BOLD', 'GRAY', null, true)
-
-    markdownHelpCrypto.format('💶 · [', 'BOLD', 'BLUE', null, false)
-    markdownHelpCrypto.format(`${process.env.PREFIX_CRYPTO}`, 'BOLD', 'PINK', null, false)
-    markdownHelpCrypto.format(']𝙘𝙧𝙮𝙥𝙩𝙤 𝙭𝙧𝙥 : 𝙂𝙞𝙫𝙚 𝙩𝙝𝙚 𝙥𝙧𝙞𝙘𝙚 𝙤𝙛 𝙓𝙧𝙥', 'BOLD', 'BLUE', null, true)
-
-    markdownHelpCrypto.format('💷 · [', 'BOLD', 'GREEN', null, false)
-    markdownHelpCrypto.format(`${process.env.PREFIX_CRYPTO}`, 'BOLD', 'PINK', null, false)
-    markdownHelpCrypto.format(']𝙘𝙧𝙮𝙥𝙩𝙤 𝙖𝙙𝙖 : 𝙂𝙞𝙫𝙚 𝙩𝙝𝙚 𝙥𝙧𝙞𝙘𝙚 𝙤𝙛 𝘼𝙙𝙖', 'BOLD', 'GREEN', null, true)
-
-    message.channel.send(markdownHelpCrypto.toCodeblock())
+    message.channel.send({
+      content: `${WebEmbed.hiddenEmbed}${embed}`,
+    })
   }
 }
 
 async function helpFun (client, message, process) {
   if (message.content === `${process.env.PREFIX_FUN}help`) {
-    const markdownHelpFun = new BetterMarkdown()
 
-    await message.delete()
+    const embed = new WebEmbed()
+      .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL() }) 
+      .setTitle('🤖 Mistrou Selfbot - Funs Commands 🤖')
+      .setDescription(`
+🏓 · [${process.env.PREFIX_FUN}]ping : check latency
+📷 · [${process.env.PREFIX_FUN}]pic <mention> : send the profile picture of the mentionned user
+😺 · [${process.env.PREFIX_FUN}]cat : send a random cat
+🐶 · [${process.env.PREFIX_FUN}]dog : send a random dog
+😜 · [${process.env.PREFIX_FUN}]meme : send a random meme
+`)
+      .setColor('#FF69B4')
 
-    markdownHelpFun.format('🤟 𝗔𝗟𝗟 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦 𝗙𝗨𝗡𝗦 🤟\n', 'UNDERLINE', 'YELLOW', 'DARKBLUE', true)
-
-    markdownHelpFun.format('🏓 · [', 'BOLD', 'CYAN', null, false)
-    markdownHelpFun.format(`${process.env.PREFIX_FUN}`, 'BOLD', 'PINK', null, false)
-    markdownHelpFun.format(']𝙥𝙞𝙣𝙜 : 𝙘𝙝𝙚𝙘𝙠 𝙡𝙖𝙩𝙚𝙣𝙘𝙮', 'BOLD', 'CYAN', null, true)
-
-    markdownHelpFun.format('📸 · [', 'BOLD', 'RED', null, false)
-    markdownHelpFun.format(`${process.env.PREFIX_FUN}`, 'BOLD', 'PINK', null, false)
-    markdownHelpFun.format(']𝙥𝙞𝙘 <𝙢𝙚𝙣𝙩𝙞𝙤𝙣> : 𝙨𝙚𝙣𝙙 𝙩𝙝𝙚 𝙥𝙧𝙤𝙛𝙞𝙡𝙚 𝙥𝙞𝙩𝙘𝙪𝙧𝙚 𝙤𝙛 𝙩𝙝𝙚 𝙪𝙨𝙚𝙧 𝙢𝙚𝙣𝙩𝙞𝙤𝙣𝙚𝙙', 'BOLD', 'RED', null, true)
-
-    markdownHelpFun.format('😺 · [', 'BOLD', 'GRAY', null, false)
-    markdownHelpFun.format(`${process.env.PREFIX_FUN}`, 'BOLD', 'PINK', null, false)
-    markdownHelpFun.format(']𝙘𝙖𝙩 : 𝙨𝙚𝙣𝙙 𝙖 𝙧𝙖𝙣𝙙𝙤𝙢 𝙘𝙖𝙩', 'BOLD', 'GRAY', null, true)
-
-    markdownHelpFun.format('🐶 · [', 'BOLD', 'BLUE', null, false)
-    markdownHelpFun.format(`${process.env.PREFIX_FUN}`, 'BOLD', 'PINK', null, false)
-    markdownHelpFun.format(']𝙙𝙤𝙜 : 𝙨𝙚𝙣𝙙 𝙖 𝙧𝙖𝙣𝙙𝙤𝙢 𝙙𝙤𝙜', 'BOLD', 'BLUE', null, true)
-
-    markdownHelpFun.format('😜 · [', 'BOLD', 'GREEN', null, false)
-    markdownHelpFun.format(`${process.env.PREFIX_FUN}`, 'BOLD', 'PINK', null, false)
-    markdownHelpFun.format(']𝙢𝙚𝙢𝙚 : 𝙨𝙚𝙣𝙙 𝙖 𝙧𝙖𝙣𝙙𝙤𝙢 𝙢𝙚𝙢𝙚', 'BOLD', 'GREEN', null, true)
-
-    message.channel.send(markdownHelpFun.toCodeblock())
+    message.channel.send({
+      content: `${WebEmbed.hiddenEmbed}${embed}`,
+    })
   }
 }
 
 async function helpHacker (client, message, process) {
   if (message.content === `${process.env.PREFIX_HACKER}help`) {
-    const markdownHelpHacker = new BetterMarkdown()
 
     await message.delete()
 
-    markdownHelpHacker.format('🛡️ 𝗗𝗔𝗡𝗚𝗘𝗥𝗢𝗨𝗦 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦 🛡️ |', 'UNDERLINE', 'RED', 'DARKBLUE', false)
-    markdownHelpHacker.format(' 💻 𝗔𝗟𝗟 𝗖𝗢𝗠𝗠𝗔𝗡𝗦 𝗛𝗔𝗖𝗞𝗘𝗥𝗦 💻\n', 'UNDERLINE', 'YELLOW', 'DARKBLUE', true)
+    const embed = new WebEmbed()
+      .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL() }) 
+      .setTitle('🤖 Mistrou Selfbot - Hackers Commands 🤖')
+      .setDescription(`
+🧹 · [${process.env.PREFIX_HACKER}]clearme <number> : deletes your messages
+📨 · [${process.env.PREFIX_HACKER}]spam <message> : spam the message
+📝 · [${process.env.PREFIX_HACKER}]cp_pp <mention> : copy the profile picture of mentionned user
+📚 · [${process.env.PREFIX_HACKER}]cp_user <mention> : copy all informations of mentionned user
+📤 · [${process.env.PREFIX_HACKER}]dm_friends <message> : send the message to all your friends
+`)
+      .setColor('#FF69B4')
 
-    markdownHelpHacker.format('🧹 · [', 'BOLD', 'CYAN', null, false)
-    markdownHelpHacker.format(`${process.env.PREFIX_HACKER}`, 'BOLD', 'PINK', null, false)
-    markdownHelpHacker.format(']𝙘𝙡𝙚𝙖𝙧𝙢𝙚 <𝙣𝙤𝙢𝙗𝙧𝙚> : 𝙙𝙚𝙡𝙚𝙩𝙚𝙨 𝙮𝙤𝙪𝙧 𝙢𝙚𝙨𝙨𝙖𝙜𝙚', 'BOLD', 'CYAN', null, true)
-
-    markdownHelpHacker.format('📨 · [', 'BOLD', 'WHITE', null, false)
-    markdownHelpHacker.format(`${process.env.PREFIX_HACKER}`, 'BOLD', 'PINK', null, false)
-    markdownHelpHacker.format(']𝙨𝙥𝙖𝙢 <𝙢𝙚𝙨𝙨𝙖𝙜𝙚> : 𝙨𝙥𝙖𝙢 <𝙢𝙚𝙨𝙨𝙖𝙜𝙚>', 'BOLD', 'WHITE', null, true)
-
-    markdownHelpHacker.format('📝 · [', 'BOLD', 'PURPLE', null, false)
-    markdownHelpHacker.format(`${process.env.PREFIX_HACKER}`, 'BOLD', 'PINK', null, false)
-    markdownHelpHacker.format(']𝙘𝙥_𝙥𝙥 <𝙢𝙚𝙣𝙩𝙞𝙤𝙣> : 𝙘𝙤𝙥𝙮 𝙩𝙝𝙚 𝙥𝙞𝙘𝙩𝙪𝙧𝙚 𝙤𝙛 𝙪𝙨𝙚𝙧 𝙢𝙚𝙣𝙩𝙞𝙤𝙣𝙚𝙙 | <𝙧𝙚𝙨𝙚𝙩> 𝙩𝙤 𝙧𝙚𝙩𝙪𝙧𝙣 𝙖𝙩 𝙮𝙤𝙪𝙧 𝙛𝙞𝙧𝙨𝙩 𝙥𝙞𝙘𝙩𝙪𝙧𝙚', 'BOLD', 'PURPLE', null, true)
-
-    markdownHelpHacker.format('📚 · [', 'BOLD', 'YELLOW', null, false)
-    markdownHelpHacker.format(`${process.env.PREFIX_HACKER}`, 'BOLD', 'PINK', null, false)
-    markdownHelpHacker.format("]𝙘𝙥_𝙪𝙨𝙚𝙧 <𝙢𝙚𝙣𝙩𝙞𝙤𝙣> : 𝙘𝙤𝙥𝙮 𝙖𝙡𝙡 𝙫𝙖𝙡𝙪𝙚𝙨 𝙤𝙛 𝙪𝙨𝙚𝙧 𝙢𝙚𝙣𝙩𝙞𝙤𝙣𝙚𝙙 | <𝙧𝙚𝙨𝙚𝙩> 𝙩𝙤 𝙧𝙚𝙩𝙪𝙧𝙣 𝙖𝙩 𝙮𝙤𝙪𝙧'𝙨", 'BOLD', 'YELLOW', null, true)
-
-    markdownHelpHacker.format('📤 · [', 'BOLD', 'PURPLE', null, false)
-    markdownHelpHacker.format(`${process.env.PREFIX_HACKER}`, 'BOLD', 'PINK', null, false)
-    markdownHelpHacker.format(']𝙙𝙢_𝙛𝙧𝙞𝙚𝙣𝙙𝙨 <𝙢𝙚𝙨𝙨𝙖𝙜𝙚> : 𝙨𝙚𝙣𝙙 <𝙢𝙚𝙨𝙨𝙖𝙜𝙚> 𝙩𝙤 𝙖𝙡𝙡 𝙮𝙤𝙪𝙧 𝙛𝙧𝙞𝙚𝙣𝙙𝙨', 'BOLD', 'PURPLE', null, true)
-    message.channel.send(markdownHelpHacker.toCodeblock())
+    message.channel.send({
+      content: `${WebEmbed.hiddenEmbed}${embed}`,
+    })
   }
 }
 
 async function helpEmotes (client, message, process) {
   if (message.content === `${process.env.PREFIX_EMOTES}help`) {
-    const markdownHelpEmotes = new BetterMarkdown()
 
     await message.delete()
 
-    markdownHelpEmotes.format('🎉 𝗔𝗟𝗟 𝗘𝗠𝗢𝗧𝗘𝗦 🎉\n', 'BOLD', 'YELLLOW', 'LIGHTGRAY', true)
+    const embed = new WebEmbed()
+      .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL() }) 
+      .setTitle('🤖 Mistrou Selfbot - Emotes Commands 🤖')
+      .setDescription(`
+🤣 · [${process.env.PREFIX_EMOTES}]mdr
+😂 · [${process.env.PREFIX_EMOTES}]lol
+🤭 · [${process.env.PREFIX_EMOTES}]oups
+💗 · [${process.env.PREFIX_EMOTES}]love
+💩 · [${process.env.PREFIX_EMOTES}]ntm
+🤔 · [${process.env.PREFIX_EMOTES}]wtf
+🤯 · [${process.env.PREFIX_EMOTES}]pff
+🤮 · [${process.env.PREFIX_EMOTES}]cringe
+💈 · [${process.env.PREFIX_EMOTES}]feur
+💯 · [${process.env.PREFIX_EMOTES}]perfect
+🤫 · [${process.env.PREFIX_EMOTES}]tg
+`)
+      .setColor('#FF69B4')
 
-    markdownHelpEmotes.format('🤣 · [', 'BOLD', 'BLUE', null, false)
-    markdownHelpEmotes.format(`${process.env.PREFIX_EMOTES}`, 'BOLD', 'PINK', null, false)
-    markdownHelpEmotes.format(']𝙢𝙙𝙧', 'BOLD', 'BLUE', null, true)
-
-    markdownHelpEmotes.format('😂 · [', 'BOLD', 'BLUE', null, false)
-    markdownHelpEmotes.format(`${process.env.PREFIX_EMOTES}`, 'BOLD', 'PINK', null, false)
-    markdownHelpEmotes.format(']𝙡𝙤𝙡', 'BOLD', 'BLUE', null, true)
-
-    markdownHelpEmotes.format('🤭 · [', 'BOLD', 'BLUE', null, false)
-    markdownHelpEmotes.format(`${process.env.PREFIX_EMOTES}`, 'BOLD', 'PINK', null, false)
-    markdownHelpEmotes.format(']𝙤𝙪𝙥𝙨', 'BOLD', 'BLUE', null, true)
-
-    markdownHelpEmotes.format('💗 · [', 'BOLD', 'BLUE', null, false)
-    markdownHelpEmotes.format(`${process.env.PREFIX_EMOTES}`, 'BOLD', 'PINK', null, false)
-    markdownHelpEmotes.format(']𝙡𝙤𝙫𝙚', 'BOLD', 'BLUE', null, true)
-
-    markdownHelpEmotes.format('💩 · [', 'BOLD', 'BLUE', null, false)
-    markdownHelpEmotes.format(`${process.env.PREFIX_EMOTES}`, 'BOLD', 'PINK', null, false)
-    markdownHelpEmotes.format(']𝙣𝙩𝙢', 'BOLD', 'BLUE', null, true)
-
-    markdownHelpEmotes.format('🤔 · [', 'BOLD', 'BLUE', null, false)
-    markdownHelpEmotes.format(`${process.env.PREFIX_EMOTES}`, 'BOLD', 'PINK', null, false)
-    markdownHelpEmotes.format(']𝙬𝙩𝙛', 'BOLD', 'BLUE', null, true)
-
-    markdownHelpEmotes.format('🤯 · [', 'BOLD', 'BLUE', null, false)
-    markdownHelpEmotes.format(`${process.env.PREFIX_EMOTES}`, 'BOLD', 'PINK', null, false)
-    markdownHelpEmotes.format(']𝙥𝙛𝙛', 'BOLD', 'BLUE', null, true)
-
-    markdownHelpEmotes.format('🤮 · [', 'BOLD', 'BLUE', null, false)
-    markdownHelpEmotes.format(`${process.env.PREFIX_EMOTES}`, 'BOLD', 'PINK', null, false)
-    markdownHelpEmotes.format(']𝙘𝙧𝙞𝙣𝙜𝙚', 'BOLD', 'BLUE', null, true)
-
-    markdownHelpEmotes.format('💈 · [', 'BOLD', 'BLUE', null, false)
-    markdownHelpEmotes.format(`${process.env.PREFIX_EMOTES}`, 'BOLD', 'PINK', null, false)
-    markdownHelpEmotes.format(']𝙛𝙚𝙪𝙧', 'BOLD', 'BLUE', null, true)
-
-    markdownHelpEmotes.format('💯 · [', 'BOLD', 'BLUE', null, false)
-    markdownHelpEmotes.format(`${process.env.PREFIX_EMOTES}`, 'BOLD', 'PINK', null, false)
-    markdownHelpEmotes.format(']𝙥𝙚𝙧𝙛𝙚𝙘𝙩', 'BOLD', 'BLUE', null, true)
-
-    markdownHelpEmotes.format('🤫 · [', 'BOLD', 'BLUE', null, false)
-    markdownHelpEmotes.format(`${process.env.PREFIX_EMOTES}`, 'BOLD', 'PINK', null, false)
-    markdownHelpEmotes.format(']𝙩𝙜', 'BOLD', 'BLUE', null, true)
-
-    message.channel.send(markdownHelpEmotes.toCodeblock())
+    message.channel.send({
+      content: `${WebEmbed.hiddenEmbed}${embed}`,
+    })
   }
 }
 
 async function helpPerso (client, message, process) {
   if (message.content === `${process.env.PREFIX_PERSO}help`) {
-    const markdownHelpPerso = new BetterMarkdown()
 
     await message.delete()
 
-    markdownHelpPerso.format('🤖 𝗔𝗟𝗟 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗘𝗦 𝗣𝗘𝗥𝗦𝗢 🤖\n', 'BOLD', 'YELLLOW', 'LIGHTGRAY', true)
+    const embed = new WebEmbed()
+      .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL() }) 
+      .setTitle('🤖 Mistrou Selfbot - Personnal Commands 🤖')
+      .setDescription(`
+🖼️ · [${process.env.PREFIX_PERSO}]avatar <url> : replace your pdp with url
+📄 · [${process.env.PREFIX_PERSO}]bio <message> : replace your bio
+📊 · [${process.env.PREFIX_PERSO}]status <AVAILABLE/IDLE/DND/INVISBLE>
+🖊️ · [${process.env.PREFIX_PERSO}]activity <playing/streaming/watching>
+`)
+      .setColor('#FF69B4')
 
-    markdownHelpPerso.format('🖼️ · [', 'BOLD', 'WHITE', null, false)
-    markdownHelpPerso.format(`${process.env.PREFIX_PERSO}`, 'BOLD', 'PINK', null, false)
-    markdownHelpPerso.format(']𝙖𝙫𝙖𝙩𝙖𝙧 <𝙪𝙧𝙡> : 𝙘𝙝𝙖𝙣𝙜𝙚 𝙮𝙤𝙪𝙧 𝙖𝙫𝙖𝙩𝙖𝙩 𝙞𝙣 <𝙪𝙧𝙡>', 'BOLD', 'WHITE', null, true)
-
-    markdownHelpPerso.format('📄 · [', 'BOLD', 'GRAY', null, false)
-    markdownHelpPerso.format(`${process.env.PREFIX_PERSO}`, 'BOLD', 'PINK', null, false)
-    markdownHelpPerso.format(']𝙗𝙞𝙤 <𝙣𝙚𝙬_𝙗𝙞𝙤> : 𝙘𝙝𝙖𝙣𝙜𝙚 𝙮𝙤𝙪𝙧 𝙗𝙞𝙤 𝙞𝙣 <𝙣𝙚𝙬_𝙗𝙞𝙤>', 'BOLD', 'GRAY', null, true)
-
-    markdownHelpPerso.format('📊 · [', 'BOLD', 'RED', null, false)
-    markdownHelpPerso.format(`${process.env.PREFIX_PERSO}`, 'BOLD', 'PINK', null, false)
-    markdownHelpPerso.format(']𝙨𝙩𝙖𝙩𝙪𝙨 <𝘼𝙑𝘼𝙄𝙇𝘼𝘽𝙇𝙀/𝙄𝘿𝙇𝙀/𝘿𝙉𝘿/𝙄𝙉𝙑𝙄𝙎𝙄𝘽𝙇𝙀>', 'BOLD', 'RED', null, true)
-
-    markdownHelpPerso.format('🖊️ · [', 'BOLD', 'GREEN', null, false)
-    markdownHelpPerso.format(`${process.env.PREFIX_PERSO}`, 'BOLD', 'PINK', null, false)
-    markdownHelpPerso.format(']𝙖𝙘𝙩𝙞𝙫𝙞𝙩𝙮 <𝙥𝙡𝙖𝙮𝙞𝙣𝙜|𝙨𝙩𝙧𝙚𝙖𝙢𝙞𝙣𝙜|𝙬𝙖𝙩𝙘𝙝𝙞𝙣𝙜>', 'BOLD', 'GREEN', null, true)
-
-    markdownHelpPerso.format('📈 · [', 'BOLD', 'BLUE', null, false)
-    markdownHelpPerso.format(`${process.env.PREFIX_PERSO}`, 'BOLD', 'PINK', null, false)
-    markdownHelpPerso.format(']𝙖𝙗𝙤𝙪𝙩𝙢𝙚 <𝙣𝙚𝙬_𝙖𝙗𝙤𝙪𝙩𝙢𝙚> | <𝙧𝙚𝙨𝙚𝙩> 𝙩𝙤 𝙧𝙚𝙩𝙪𝙧𝙣 𝙩𝙤 𝙮𝙤𝙪𝙧 𝙛𝙞𝙧𝙨𝙩 𝙖𝙗𝙤𝙪𝙩𝙢𝙚', 'BOLD', 'BLUE', null, true)
-
-    message.channel.send(markdownHelpPerso.toCodeblock())
+    message.channel.send({
+      content: `${WebEmbed.hiddenEmbed}${embed}`,
+    })
   }
 }
 
 async function helpInfos (client, message, process) {
   if (message.content === `${process.env.PREFIX_INFOS}help`) {
+
     await message.delete()
 
-    const markdownHelpInfos = new BetterMarkdown()
+    const embed = new WebEmbed()
+      .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL() }) 
+      .setTitle('🤖 Mistrou Selfbot - Infos Commands 🤖')
+      .setDescription(`
+💁🏻 · [${process.env.PREFIX_INFOS}]infouser <mention> : send informations about mentionned user
+ℹ️ · [${process.env.PREFIX_INFOS}]infoserv : send informations about the server
+`)
+      .setColor('#FF69B4')
 
-    markdownHelpInfos.format('📝 𝗔𝗟𝗟 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦 𝗜𝗡𝗙𝗢𝗦 📝\n', 'BOLD', 'YELLLOW', 'LIGHTGRAY', true)
-
-    markdownHelpInfos.format('ℹ️ · [', 'BOLD', 'CYAN', null, false)
-    markdownHelpInfos.format(`${process.env.PREFIX_INFOS}`, 'BOLD', 'PINK', null, false)
-    markdownHelpInfos.format(']𝙞𝙣𝙛𝙤𝙨𝙚𝙧𝙫 = 𝙨𝙚𝙣𝙙 𝙨𝙤𝙢𝙚 𝙞𝙣𝙛𝙤𝙧𝙢𝙖𝙩𝙞𝙤𝙣𝙨 𝙩𝙤 𝙖 𝙜𝙪𝙞𝙡𝙙', 'BOTH', 'CYAN', null, true)
-
-    markdownHelpInfos.format('💁🏻 · [', 'BOLD', 'GREEN', null, false)
-    markdownHelpInfos.format(`${process.env.PREFIX_INFOS}`, 'BOLD', 'PINK', null, false)
-    markdownHelpInfos.format(']𝙞𝙣𝙛𝙤𝙪𝙨𝙚𝙧 <𝙪𝙨𝙚𝙧> = 𝙨𝙚𝙣𝙙 𝙨𝙤𝙢𝙚 𝙞𝙣𝙛𝙤𝙧𝙢𝙖𝙩𝙞𝙤𝙣𝙨 𝙩𝙤 <𝙪𝙨𝙚𝙧>', 'BOLD', 'GREEN', null, true)
-
-    message.channel.send(markdownHelpInfos.toCodeblock())
+    message.channel.send({
+      content: `${WebEmbed.hiddenEmbed}${embed}`,
+    })
   }
 }
 
 async function helpAdmin (client, message, process) {
   if (message.content === `${process.env.PREFIX_ADMIN}help`) {
+
     await message.delete()
 
-    const markdownHelpAdmin = new BetterMarkdown()
-    markdownHelpAdmin.format('🚨 𝗣𝗥𝗜𝗩𝗔𝗧𝗘 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦 🚨\n', 'BOLD', 'YELLLOW', 'LIGHTGRAY', true)
-    markdownHelpAdmin.format('🪄 𝗔𝗟𝗟 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦 𝗔𝗗𝗠𝗜𝗡 🪄\n', 'BOLD', 'YELLLOW', 'LIGHTGRAY', true)
+    const embed = new WebEmbed()
+      .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL() }) 
+      .setTitle('🤖 Mistrou Selfbot - Privates Commands 🤖')
+      .setDescription(`
+🪄 · [${process.env.PREFIX_ADMIN}]nitrosniper <on/off> : take the nitro when droped in any chat
+🧐 · [${process.env.PREFIX_ADMIN}]history <on/off> : save message sended (even those deleted)
+🧐 · [${process.env.PREFIX_ADMIN}]view <id/mention> : view all message sended by the id/mention (even those deleted, ONLY IF HISTORY IS ENABLED)
 
-    markdownHelpAdmin.format('🔧 · [', 'BOLD', 'RED', null, false)
-    markdownHelpAdmin.format(`${process.env.PREFIX_ADMIN}`, 'BOLD', 'PINK', null, false)
-    markdownHelpAdmin.format(']𝙣𝙞𝙩𝙧𝙤𝙨𝙣𝙞𝙥𝙚𝙧 <𝙤𝙣/𝙤𝙛𝙛> : 𝙖𝙘𝙩𝙞𝙫𝙖𝙩𝙚𝙨 𝙤𝙧 𝙙𝙚𝙖𝙘𝙩𝙞𝙫𝙖𝙩𝙚𝙨 𝙣𝙞𝙩𝙧𝙤𝙨𝙣𝙞𝙥𝙚𝙧', 'BOLD', 'RED', null, true)
+`)
+      .setColor('#FF69B4')
 
-    markdownHelpAdmin.format('🧐 · [', 'BOLD', 'RED', null, false)
-    markdownHelpAdmin.format(`${process.env.PREFIX_ADMIN}`, 'BOLD', 'PINK', null, false)
-    markdownHelpAdmin.format(']𝙝𝙞𝙨𝙩𝙤𝙧𝙮 <𝙤𝙣/𝙤𝙛𝙛> : 𝙖𝙘𝙩𝙞𝙫𝙖𝙩𝙚𝙨 𝙤𝙧 𝙙𝙚𝙖𝙘𝙩𝙞𝙫𝙖𝙩𝙚𝙨 𝙝𝙞𝙨𝙩𝙤𝙧𝙮', 'BOLD', 'RED', null, true)
-
-    markdownHelpAdmin.format('👀 · [', 'BOLD', 'RED', null, false)
-    markdownHelpAdmin.format(`${process.env.PREFIX_ADMIN}`, 'BOLD', 'PINK', null, false)
-    markdownHelpAdmin.format(']𝙫𝙞𝙚𝙬 <𝙞𝙙> : 𝙨𝙚𝙣𝙙 𝙖𝙡𝙡 𝙢𝙚𝙨𝙨𝙖𝙜𝙚 𝙨𝙚𝙣𝙩 𝙗𝙮 <𝙞𝙙> (𝙚𝙫𝙚𝙣 𝙩𝙝𝙤𝙨𝙚 𝙙𝙚𝙡𝙚𝙩𝙚𝙙) | 𝙊𝙉𝙇𝙔 𝙄𝙁 𝙃𝙄𝙎𝙏𝙊𝙍𝙔 𝙄𝙎 𝙀𝙉𝘼𝘽𝙇𝙀', 'BOLD', 'RED', null, true)
-
-    message.channel.send(markdownHelpAdmin.toCodeblock())
+    message.channel.send({
+      content: `${WebEmbed.hiddenEmbed}${embed}`,
+    })
   }
 }
 

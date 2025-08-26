@@ -171,7 +171,7 @@ async function infoServAll (client, message, process) {
 
 const tests = [
   {
-    test: a => a == 'infouser',
+    test: a => a.startsWith('infouser'),
     run: infoUser
   },
   {
@@ -186,6 +186,7 @@ const tests = [
 
 export default async function PREFIX_INFOS (client, message, process) {
   if (message.content.startsWith(`${process.env.PREFIX_INFOS}`)) {
+    console.log('INFOS command used by', message.author.tag)
     const args = message.content.replace(`${process.env.PREFIX_INFOS}`, '')
 
     tests.filter(a => a.test(args))

@@ -48,26 +48,14 @@ PREFIX_PERSO=%
 PREFIX_INFOS=?
 PREFIX_ADMIN=@
 ```
-- To have your token connected to [discord.com](https://discord.com/) and paste this code into the console
+
+- To have your token connected to [discord.com](https://discord.com/)
+- Press ``F12`` and enable the ``Toggle Device Toolbar``
+- Go to the ``Console`` tab and paste the following code :
 
 ```js
-window.webpackChunkdiscord_app.push([
-  [Math.random()],
-  {},
-  req => {
-    for (const m of Object.keys(req.c)
-      .map(x => req.c[x].exports)
-      .filter(x => x)) {
-      if (m.default && m.default.getToken !== undefined) {
-        return copy(m.default.getToken());
-      }
-      if (m.getToken !== undefined) {
-        return copy(m.getToken());
-      }
-    }
-  },
-]);
-console.log('%cWorked!', 'font-size: 50px');
+const iframe = document.createElement('iframe');
+copy(JSON.parse(document.body.appendChild(iframe).contentWindow.localStorage.token))
 ```
 
 Once this is done your **token** is copied into your __paper-press__.
