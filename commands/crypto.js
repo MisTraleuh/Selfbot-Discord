@@ -5,97 +5,123 @@
 ** all crypto's commands, like the prize of bitcoin or the price of ethereum, etc...
 */
 
-import BetterMarkdown from 'discord-bettermarkdown'
 import axios from 'axios'
+import { WebEmbed } from 'discord.js-selfbot-v13'
 
 import dotenv from 'dotenv'
 dotenv.config()
 
-let valueBtc = 0
-let valueEth = 0
-let valueLtc = 0
-let valueXrp = 0
-let valueAda = 0
 const monnaie = ['USD', 'EUR', 'GBP', 'CHF', 'AUD', 'RUB']
 
-async function ada (client, message, process) {
-  const markdownAda = new BetterMarkdown()
+async function ada (client, message) {
+  const response = await axios.get(`https://min-api.cryptocompare.com/data/price?fsym=ADA&tsyms=${monnaie.join(',')}`)
 
-  await axios.get(`https://min-api.cryptocompare.com/data/price?fsym=ADA&tsyms=${monnaie.join(',')}`).then(r => {
-    const color = valueAda <= r.data.USD ? 'GREEN' : 'RED'
+  const embed = new WebEmbed()
+    .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL() }) 
+    .setTitle('💷 Cardano price 💷')
+    .setImage('https://images.squarespace-cdn.com/content/v1/551ddcb9e4b0d9e1728a296d/1536878221362-67ZF87XNBI0WW37QFCED/cardano_logo_zoom3.gif')
+    .setDescription(`
+📊 · Current price of Cardano in USD: ${response.data.USD}$
+💶 · Current price of Cardano in EUR: ${response.data.EUR}€
+💷 · Current price of Cardano in GBP: ${response.data.GBP}£
+💴 · Current price of Cardano in CHF: ${response.data.CHF}CHF
+💵 · Current price of Cardano in AUD: ${response.data.AUD}A$
+💸 · Current price of Cardano in RUB: ${response.data.RUB}₽
+`)
+    .setColor('#FF69B4')
 
-    valueAda = valueAda <= r.data.USD ? r.data.USD : valueAda
-
-    monnaie.forEach(crypto => {
-      markdownAda.format(`${color === 'GREEN' ? '📈' : '📉'} Price of Cardano in ${crypto}: ${r.data[crypto]}$`, 'BOLD', color, 'DARKBLUE', true)
-    })
+  message.channel.send({
+    content: `${WebEmbed.hiddenEmbed}${embed}`,
   })
-  await message.channel.send('https://images.squarespace-cdn.com/content/v1/551ddcb9e4b0d9e1728a296d/1536878221362-67ZF87XNBI0WW37QFCED/cardano_logo_zoom3.gif')
-  await message.channel.send(markdownAda.toCodeblock())
 }
 
-async function xrp (client, message, process) {
-  const markdownXrp = new BetterMarkdown()
+async function xrp (client, message) {
+  const response = await axios.get(`https://min-api.cryptocompare.com/data/price?fsym=XRP&tsyms=${monnaie.join(',')}`)
 
-  await axios.get(`https://min-api.cryptocompare.com/data/price?fsym=XRP&tsyms=${crypto.join(',')}`).then(r => {
-    const color = valueXrp <= r.data.USD ? 'GREEN' : 'RED'
+  const embed = new WebEmbed()
+    .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL() }) 
+    .setTitle('💶 XRP price 💶')
+    .setImage('https://cdn.dribbble.com/userupload/42018633/file/original-d74c4e973cca28bee31b68a05b096cb7.gif')
+    .setDescription(`
+📊 · Current price of XRP in USD: ${response.data.USD}$
+💶 · Current price of XRP in EUR: ${response.data.EUR}€
+💷 · Current price of XRP in GBP: ${response.data.GBP}£
+💴 · Current price of XRP in CHF: ${response.data.CHF}CHF
+💵 · Current price of XRP in AUD: ${response.data.AUD}A$
+💸 · Current price of XRP in RUB: ${response.data.RUB}₽
+`)
+    .setColor('#FF69B4')
 
-    valueXrp = valueXrp <= r.data.USD ? r.data.USD : valueXrp
-
-    monnaie.forEach(crypto => {
-      markdownXrp.format(`${color === 'GREEN' ? '📈' : '📉'} Price of XRP in ${crypto}: ${r.data[crypto]}$`, 'BOLD', color, 'DARKBLUE', true)
-    })
+  message.channel.send({
+    content: `${WebEmbed.hiddenEmbed}${embed}`,
   })
-  await message.channel.send('https://i0.wp.com/www.xrparcade.com/wp-content/uploads/2020/06/xrptransfer-img.gif?resize=300%2C300&ssl=1')
-  await message.channel.send(markdownXrp.toCodeblock())
 }
 
-async function ltc (client, message, process) {
-  const markdownLtc = new BetterMarkdown()
+async function ltc (client, message) {
+  const response = await axios.get(`https://min-api.cryptocompare.com/data/price?fsym=LTC&tsyms=${monnaie.join(',')}`)
 
-  await axios.get('https://min-api.cryptocompare.com/data/price?fsym=LTC&tsyms=USD,EUR,GBP,CHF,AUD,RUB').then(r => {
-    const color = valueLtc <= r.data.USD ? 'GREEN' : 'RED'
+  const embed = new WebEmbed()
+    .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL() }) 
+    .setTitle('💵 Litecoin price 💵')
+    .setImage('https://media0.giphy.com/media/v1.Y2lkPTZjMDliOTUyb2VhbzNxeWt2N3RzMXVvbTltNDZtYTdwa3U5NnFycThneno3YWVzdyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xULW8imgOopU62dFkc/200w.gif')
+    .setDescription(`
+📊 · Current price of Litecoin in USD: ${response.data.USD}$
+💶 · Current price of Litecoin in EUR: ${response.data.EUR}€
+💷 · Current price of Litecoin in GBP: ${response.data.GBP}£
+💴 · Current price of Litecoin in CHF: ${response.data.CHF}CHF
+💵 · Current price of Litecoin in AUD: ${response.data.AUD}A$
+💸 · Current price of Litecoin in RUB: ${response.data.RUB}₽
+`)
+    .setColor('#FF69B4')
 
-    valueLtc = valueLtc <= r.data.USD ? r.data.USD : valueLtc
-
-    monnaie.forEach(crypto => {
-      markdownLtc.format(`${color === 'GREEN' ? '📈' : '📉'} Price of Litecoin in ${crypto}: ${r.data[crypto]}$`, 'BOLD', color, 'DARKBLUE', true)
-    })
+  message.channel.send({
+    content: `${WebEmbed.hiddenEmbed}${embed}`,
   })
-  await message.channel.send('https://discover.luno.com/wp-content/uploads/BLOG_LTC_ANNOUNCE.gif')
-  await message.channel.send(markdownLtc.toCodeblock())
 }
 
-async function eth (client, message, process) {
-  const markdownEth = new BetterMarkdown()
+async function eth (client, message) {
+  const response = await axios.get(`https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=${monnaie.join(',')}`)
 
-  await axios.get('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD,EUR,GBP,CHF,AUD,RUB').then(r => {
-    const color = valueEth <= r.data.USD ? 'GREEN' : 'RED'
+  const embed = new WebEmbed()
+    .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL() }) 
+    .setTitle('💴 Ethereum price 💴')
+    .setImage('https://media0.giphy.com/media/v1.Y2lkPTZjMDliOTUyZTE5MmQ1NXdidGVsYTkxcGxmd213MmU3MjFja2t4cWZwMGNjaGdiZCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/L59aKIC2MFyfUfrz3n/200w.gif')
+    .setDescription(`
+📊 · Current price of Ethereum in USD: ${response.data.USD}$
+💶 · Current price of Ethereum in EUR: ${response.data.EUR}€
+💷 · Current price of Ethereum in GBP: ${response.data.GBP}£
+💴 · Current price of Ethereum in CHF: ${response.data.CHF}CHF
+💵 · Current price of Ethereum in AUD: ${response.data.AUD}A$
+💸 · Current price of Ethereum in RUB: ${response.data.RUB}₽
+`)
+    .setColor('#FF69B4')
 
-    valueEth = valueEth <= r.data.USD ? r.data.USD : valueEth
-
-    monnaie.forEach(crypto => {
-      markdownEth.format(`${color === 'GREEN' ? '📈' : '📉'} Price of Ethereum in ${crypto}: ${r.data[crypto]}$`, 'BOLD', color, 'DARKBLUE', true)
-    })
+  message.channel.send({
+    content: `${WebEmbed.hiddenEmbed}${embed}`,
   })
-  await message.channel.send('https://c.tenor.com/Q5e7EFiLLVMAAAAC/ethereum.gif')
-  await message.channel.send(markdownEth.toCodeblock())
 }
 
-async function btc (client, message, process) {
-  const markdownBtc = new BetterMarkdown()
+async function btc (client, message) {
 
-  await axios.get('https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,EUR,GBP,CHF,AUD,RUB').then(r => {
-    const color = valueBtc <= r.data.USD ? 'GREEN' : 'RED'
+  const response = await axios.get(`https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=${monnaie.join(',')}`);
 
-    valueBtc = valueBtc <= r.data.USD ? r.data.USD : valueBtc
+  const embed = new WebEmbed()
+    .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL() }) 
+    .setTitle('🪙 Bitcoin price 🪙')
+    .setImage('https://c.tenor.com/y0SIaspW0E8AAAAd/cyberhornet-nest.gif')
+    .setDescription(`
+📊 · Current price of Bitcoin in USD: ${response.data.USD}$
+💶 · Current price of Bitcoin in EUR: ${response.data.EUR}€
+💷 · Current price of Bitcoin in GBP: ${response.data.GBP}£
+💴 · Current price of Bitcoin in CHF: ${response.data.CHF}CHF
+💵 · Current price of Bitcoin in AUD: ${response.data.AUD}A$
+💸 · Current price of Bitcoin in RUB: ${response.data.RUB}₽
+`)
+    .setColor('#FF69B4')
 
-    monnaie.forEach(crypto => {
-      markdownBtc.format(`${color === 'GREEN' ? '📈' : '📉'} Price of Bitcoin in ${crypto}: ${r.data[crypto]}$`, 'BOLD', color, 'DARKBLUE', true)
-    })
+  message.channel.send({
+    content: `${WebEmbed.hiddenEmbed}${embed}`,
   })
-  await message.channel.send('https://c.tenor.com/y0SIaspW0E8AAAAd/cyberhornet-nest.gif')
-  await message.channel.send(markdownBtc.toCodeblock())
 }
 
 const crypto = {
@@ -107,12 +133,12 @@ const crypto = {
 }
 
 export default async function PREFIX_CRYPTO (client, message, process) {
-  if (message.content.startsWith(`${process.env.PREFIX_CRYPTO}crypto`)) {
-    const flagCrypto = message.content.split(' ')[1]
+  if (message.content.startsWith(`${process.env.PREFIX_CRYPTO}`)) {
+    const flagCrypto = message.content.slice(process.env.PREFIX_CRYPTO.length).trim().toLowerCase()
 
     const command = crypto[flagCrypto]
     if (command) {
-      await command(client, message, process)
+      await command(client, message)
       await message.delete()
     }
   }
