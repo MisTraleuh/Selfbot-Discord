@@ -196,7 +196,6 @@ const tests = [
 ]
 
 export default async function allHelps (client, message, process) {
-  console.log(message.content == `${process.env.PREFIX_NORMAL}help`)
   tests.filter(a => a.test(message.content))
     .forEach(async (a) => {
       await message.delete()
