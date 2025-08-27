@@ -5,7 +5,7 @@
 ** all info's commands, like the help, the invite, etc...
 */
 
-import BetterMarkdown from 'discord-bettermarkdown'
+import { WebEmbed } from 'discord.js-selfbot-v13'
 import Discord from 'discord.js'
 import dotenv from 'dotenv'
 dotenv.config()
@@ -15,46 +15,41 @@ async function infoUser (client, message, process) {
   
   if (!user) { return message.channel.send('You must mention a user') }
 
-  await message.delete()
+  const username = user.username
+  const discriminator = user.discriminator
+  const id = user.id
+  const createdAt = user.createdAt.toLocaleString()
+  const mutualGuilds = client.guilds.cache.filter(guild => guild.members.cache.has(user.id)).map(guild => guild.name).join(', ')
 
-  const messageUser = new BetterMarkdown()
+  let messageToSend = `
+📝 · Username : ${username}
+📝 · Discriminator : ${discriminator}
+📝 · ID : ${id}
+📝 · Created at : ${createdAt}
+🫂 · Mutual Guild : ${mutualGuilds ? mutualGuilds : 'None'}
+    `
 
-  messageUser.format('🔎 Informations to the user', 'UNDERLINE', 'RED', 'GRAY', false)
+  const embed = new WebEmbed()
+    .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL() }) 
+    .setTitle('🔎 Informations about the user 🔎')
+    .setColor('#FF69B4')
+    .setDescription(messageToSend)
 
-  messageUser.format('', 'BOLD', 'RED', null, false)
-  messageUser.format('\n\n📝 · Username : ', 'BOLD', 'YELLOW', null, false)
-  messageUser.format(user.username, 'BOLD', 'BLUE', 'DARKBLUE', true)
-
-  messageUser.format('📝 · Discriminator : ', 'BOLD', 'YELLOW', null, false)
-  messageUser.format(user.discriminator, 'BOLD', 'BLUE', 'DARKBLUE', true)
-
-  messageUser.format('📝 · ID : ', 'BOLD', 'YELLOW', null, false)
-  messageUser.format(user.id, 'BOLD', 'BLUE', 'DARKBLUE', true)
-
-  messageUser.format('📝 · Created at : ', 'BOLD', 'YELLOW', null, false)
-  messageUser.format(user.createdAt.toLocaleString(), 'BOLD', 'BLUE', 'DARKBLUE', true)
-
-  messageUser.format('🫂 · Mutual Guild : ', 'BOLD', 'YELLOW', null, true)
-
-  await client.guilds.cache.filter(guild => guild.members.cache.has(user.id)).forEach(guild => {
-    messageUser.format('    ' + guild.name, 'BOLD', 'BLUE', 'DARKBLUE', true)
+  message.channel.send({
+    content: `${WebEmbed.hiddenEmbed}${embed}`,
   })
-  await message.channel.send(messageUser.toCodeblock())
 }
 
 async function infoServ (client, message, process) {
   if (!message.guild) {
     return message.channel.send('This guild is not a guild server')
   }
-  
-  await message.delete();
 
-  const messageGuild = new BetterMarkdown()
   const server = message.guild;
   const owner = await client.users.fetch(server.ownerId).catch(() => null);
   const serverName = server.name ? server.name : 'Unknow';
-  const serverDescription = server.description ? server.description : 'No description' + '\n';
-  const serverOwnerName = owner ? `${owner.username}#${owner.discriminator}` : 'Unknow#0000\n';
+  const serverDescription = server.description ? server.description : 'N/A';
+  const serverOwnerName = owner ? `${owner.username}#${owner.discriminator}` : 'Unknow#0000';
   const serverRegion = server.region ? server.region : 'Unknow';
   const serverCreationDate = server.createdAt.toLocaleString();
   const serverMembers = server.memberCount;
@@ -64,52 +59,37 @@ async function infoServ (client, message, process) {
   const serverGuildVoiceChannelsNumber = server.channels.cache.filter(channel => channel.type === 'GUILD_VOICE').size;
   const serverGuildTextChannelsNumber = server.channels.cache.filter(channel => channel.type === 'GUILD_TEXT').size
 
-  messageGuild.format('🔎 Informations to the server', 'UNDERLINE', 'RED', 'INDIGO', false)
+  let messageToSend = `
+📝 · Name : ${serverName}
+📄 · Description : ${serverDescription}
+👑 · Owner : ${serverOwnerName}
+📍 · Region : ${serverRegion}
+📅 · Creation date : ${serverCreationDate}
+👥 · Members : ${serverMembers}
+🛖 · Channels : ${serverChannelsNumber}
+😜 · Roles : ${serverRolesNumber}
+👥 · Emojis : ${serverEmojisNumber}
+🔊 · Voice channels : ${serverGuildVoiceChannelsNumber}
+💬 · Text channels : ${serverGuildTextChannelsNumber}
+    `
 
-  messageGuild.format('', 'BOLD', 'RED', null, false)
-  messageGuild.format('\n\n📝 · Name : ', 'BOLD', 'YELLOW', null, false)
-  messageGuild.format(serverName, 'BOLD', 'BLUE', 'DARKBLUE', true)
+  const embed = new WebEmbed()
+    .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL() }) 
+    .setTitle('🔎 Informations about the server 🔎')
+    .setColor('#FF69B4')
+    .setDescription(messageToSend)
 
-  messageGuild.format('📄 · Description : ', 'BOLD', 'YELLOW', null, false)
-  messageGuild.format(serverDescription, 'BOLD', 'BLUE', 'DARKBLUE', true)
-
-  messageGuild.format('👑 · Owner : ', 'BOLD', 'YELLOW', null, false)
-  messageGuild.format(serverOwnerName, 'BOLD', 'BLUE', 'DARKBLUE', true)
-
-  messageGuild.format('📍 · Region : ', 'BOLD', 'YELLOW', null, false)
-  messageGuild.format(serverRegion, 'BOLD', 'BLUE', 'DARKBLUE', true)
-
-  messageGuild.format('📅 · Creation date : ', 'BOLD', 'YELLOW', null, false)
-  messageGuild.format(serverCreationDate, 'BOLD', 'BLUE', 'DARKBLUE', true)
-
-  messageGuild.format('👥 · Members : ', 'BOLD', 'YELLOW', null, false)
-  messageGuild.format(serverMembers, 'BOLD', 'BLUE', 'DARKBLUE', true)
-
-  messageGuild.format('🛖 · Channels : ', 'BOLD', 'YELLOW', null, false)
-  messageGuild.format(serverChannelsNumber, 'BOLD', 'BLUE', 'DARKBLUE', true)
-
-  messageGuild.format('😜 · Roles : ', 'BOLD', 'YELLOW', null, false)
-  messageGuild.format(serverRolesNumber, 'BOLD', 'BLUE', 'DARKBLUE', true)
-
-  messageGuild.format('👥 · Emojis : ', 'BOLD', 'YELLOW', null, false)
-  messageGuild.format(serverEmojisNumber, 'BOLD', 'BLUE', 'DARKBLUE', true)
-
-  messageGuild.format('🔊 · Voice channels : ', 'BOLD', 'YELLOW', null, false)
-  messageGuild.format(serverGuildVoiceChannelsNumber, 'BOLD', 'BLUE', 'DARKBLUE', true)
-
-  messageGuild.format('💬 · Text channels : ', 'BOLD', 'YELLOW', null, false)
-  messageGuild.format(serverGuildTextChannelsNumber, 'BOLD', 'BLUE', 'DARKBLUE', true)
-
-  const messageToSend = messageGuild.toCodeblock()
-
-  if (messageToSend.length > 2000) {
-    const buffer = Buffer.from(messageToSend, 'utf-8');
-    const attachment = new Discord.MessageAttachment(buffer, 'channels.txt');
-    await message.channel.send({ files: [attachment] });
-    return;
-  }
-
-  await message.channel.send(messageToSend)
+    
+    if (messageToSend.length > 2000) {
+      const buffer = Buffer.from(messageToSend, 'utf-8');
+      const attachment = new Discord.MessageAttachment(buffer, 'channels.txt');
+      await message.channel.send({ files: [attachment] });
+      return;
+    } else {
+      message.channel.send({
+        content: `${WebEmbed.hiddenEmbed}${embed}`,
+      })
+    }
 }
 
 async function infoServAll (client, message, process) {
@@ -117,11 +97,9 @@ async function infoServAll (client, message, process) {
     return message.channel.send('This guild is not a guild server')
   }
 
-  await message.delete();
-
-  const messageGuild = new BetterMarkdown()
   const server = message.guild;
   const owner = await client.users.fetch(server.ownerId).catch(() => null);
+  const serverName = server.name ? server.name : 'Unknow';
   const serverDescription = server.description ? server.description : 'No description' + '\n';
   const ownerName = owner ? `${owner.username}#${owner.discriminator}` : 'Unknow#0000\n';
   const serverRegion = server.region ? server.region : 'Unknow';
@@ -131,42 +109,26 @@ async function infoServAll (client, message, process) {
   const serverRolesAll = "\n" + server.roles.cache.map(role => `ID: ${role.id} | Nom: ${role.name} | Couleur: ${role.hexColor}`).join('\n');
   const serverEmojisAll = "\n" + server.emojis.cache.map(emoji => `ID: ${emoji.id} | Nom: ${emoji.name} | Animé: ${emoji.animated}`).join('\n');
 
-  messageGuild.format('🔎 Informations to the server', 'UNDERLINE', 'RED', 'INDIGO', false)
+  let messageToSend = `
+🔎 All Informations about the server 🔎
+📝 · Name : ${serverName}
+📄 · Description : ${serverDescription}
+👑 · Owner : ${ownerName}
+📍 · Region : ${serverRegion}
+📅 · Creation date : ${serverCreationDate}
+👥 · Members : ${serverMembers}
+🛖 · Channels :
+${serverChannelsAll}
+😜 · Roles :
+${serverRolesAll}
+👥 · Emojis :
+${serverEmojisAll}
+    `
 
-  messageGuild.format('📄 · Description : ', 'BOLD', 'YELLOW', null, false)
-  messageGuild.format(serverDescription, 'BOLD', 'BLUE', 'DARKBLUE', true)
+  const buffer = Buffer.from(messageToSend, 'utf-8');
+  const attachment = new Discord.MessageAttachment(buffer, 'channels.txt');
+  await message.channel.send({ files: [attachment] });
 
-  messageGuild.format('👑 · Owner : ', 'BOLD', 'YELLOW', null, false)
-  messageGuild.format(ownerName, 'BOLD', 'BLUE', 'DARKBLUE', true)
-
-  messageGuild.format('📍 · Region : ', 'BOLD', 'YELLOW', null, false)
-  messageGuild.format(serverRegion, 'BOLD', 'BLUE', 'DARKBLUE', true)
-
-  messageGuild.format('📅 · Creation date : ', 'BOLD', 'YELLOW', null, false)
-  messageGuild.format(serverCreationDate, 'BOLD', 'BLUE', 'DARKBLUE', true)
-
-  messageGuild.format('👥 · Members : ', 'BOLD', 'YELLOW', null, false)
-  messageGuild.format(serverMembers, 'BOLD', 'BLUE', 'DARKBLUE', true)
-
-  messageGuild.format('🛖 · Channels : ', 'BOLD', 'YELLOW', null, false)
-  messageGuild.format(serverChannelsAll, 'BOLD', 'BLUE', 'DARKBLUE', true)
-
-  messageGuild.format('😜 · Roles : ', 'BOLD', 'YELLOW', null, false)
-  messageGuild.format(serverRolesAll, 'BOLD', 'BLUE', 'DARKBLUE', true)
- 
-  messageGuild.format('👥 · Emojis : ', 'BOLD', 'YELLOW', null, false)
-  messageGuild.format(serverEmojisAll, 'BOLD', 'BLUE', 'DARKBLUE', true)
-
-  const messageToSend = messageGuild.toCodeblock()
-
-  if (messageToSend.length > 2000) {
-    const buffer = Buffer.from(messageToSend, 'utf-8');
-    const attachment = new Discord.MessageAttachment(buffer, 'channels.txt');
-    await message.channel.send({ files: [attachment] });
-    return;
-  }
-
-  await message.channel.send(messageToSend)
 }
 
 const tests = [
@@ -189,6 +151,9 @@ export default async function PREFIX_INFOS (client, message, process) {
     const args = message.content.replace(`${process.env.PREFIX_INFOS}`, '')
 
     tests.filter(a => a.test(args))
-      .forEach(a => a.run(client, message, process))
+      .forEach(async (a) => {
+        await message.delete()
+        await a.run(client, message, process);
+      })
   }
 }

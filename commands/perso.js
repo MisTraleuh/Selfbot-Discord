@@ -18,13 +18,13 @@ async function aboutme (client, message, process) {
 
   if (!aboutMeMessage || !aboutMeMessage.startsWith(' ')) {
     const newBio = await message.channel.send('❌ Please enter a new aboutme.')
-    await setTimeout(() => { newBio.delete() }, 2500)
+    setTimeout(() => { newBio.delete() }, 2500)
     return
   }
 
   if (aboutMeMessage.length > 2000) {
     const tooLongMessage = await message.channel.send('❌ Your aboutme is too long.')
-    await setTimeout(() => { tooLongMessage.delete() }, 2500)
+    setTimeout(() => { tooLongMessage.delete() }, 2500)
     return
   }
 
@@ -35,7 +35,7 @@ async function aboutme (client, message, process) {
     await client.user.setAboutMe(saveAboutMe[--intAboutMe])
     saveAboutMe = saveAboutMe.filter(about => about !== saveAboutMe[intAboutMe])
     const messageSave = await message.channel.send('✅ Your bio has been reset.')
-    await setTimeout(() => { messageSave.delete() }, 2500)
+    setTimeout(() => { messageSave.delete() }, 2500)
     return
   }
 
@@ -43,7 +43,7 @@ async function aboutme (client, message, process) {
   intAboutMe++
   client.user.setAboutMe(aboutMeMessage)
   const allIsSet = await message.channel.send(`✅ Aboutme edit in **${aboutMeMessage}**.`)
-  await setTimeout(() => { allIsSet.delete() }, 2500)
+  setTimeout(() => { allIsSet.delete() }, 2500)
 }
 
 async function activity (client, message, process) {
@@ -55,7 +55,7 @@ async function activity (client, message, process) {
 
   await client.user.setActivity(activityFlag, { type: 'PLAYING' })
   const allIsSet = await message.channel.send(`✅ Activity changed in ${activityFlag}.`)
-  await setTimeout(() => { allIsSet.delete() }, 2500)
+  setTimeout(() => { allIsSet.delete() }, 2500)
 }
 
 async function status (client, message, process) {
@@ -68,7 +68,7 @@ async function status (client, message, process) {
   if (['AVAILABLE', 'DND', 'IDLE', 'INVISIBLE'].includes(statusFlag)) {
     await client.user.setStatus({ status: statusFlag })
     const allIsSet = await message.channel.send(`✅ Status edit in ${statusFlag}.`)
-    await setTimeout(() => { allIsSet.delete() }, 2500)
+    setTimeout(() => { allIsSet.delete() }, 2500)
   } else { return message.channel.send('❌ Please enter a status valid.') }
 }
 
@@ -81,7 +81,7 @@ async function bio (client, message, process) {
 
   await client.user.setPresence({ activity: { name: bioFlag } })
   const allIsSet = await message.channel.send(`✅ Bio edit in ${bioFlag}.`)
-  await setTimeout(() => { allIsSet.delete() }, 2500)
+  setTimeout(() => { allIsSet.delete() }, 2500)
 }
 
 async function avatar (client, message, process) {
@@ -93,7 +93,7 @@ async function avatar (client, message, process) {
 
   await client.user.setAvatar(avatarFlag)
   const allIsSet = await message.channel.send(`✅ Avatar edit in ${avatarFlag}.`)
-  await setTimeout(() => { allIsSet.delete() }, 2500)
+  setTimeout(() => { allIsSet.delete() }, 2500)
 }
 
 const tests = [
