@@ -19,12 +19,12 @@ async function helpNormal (client, message, process) {
     .setDescription(`
 Here the avaible command:
 🤖 · [${process.env.PREFIX_NORMAL}]help : displays the current prefixes
-💷 · [${process.env.PREFIX_CRYPTO}]help : displays all crypto commands
-😂 · [${process.env.PREFIX_FUN}]help : displays all fun commands
-🥷 · [${process.env.PREFIX_HACKER}]help : displays all hacker commands
-😃 · [${process.env.PREFIX_EMOTES}]help : displays all emotes commands
-🫂 · [${process.env.PREFIX_PERSO}]help : displays all perso commands
-🚀 · [${process.env.PREFIX_INFOS}]help : displays all infos commands
+💷 · [${process.env.PREFIX_CRYPTO}]help : displays crypto commands
+😂 · [${process.env.PREFIX_FUN}]help : displays fun commands
+🥷 · [${process.env.PREFIX_HACKER}]help : displays hacker commands
+😃 · [${process.env.PREFIX_EMOTES}]help : displays emotes commands
+🫂 · [${process.env.PREFIX_PERSO}]help : displays perso commands
+🚀 · [${process.env.PREFIX_INFOS}]help : displays infos commands
   `)
 
   message.channel.send({
@@ -85,7 +85,7 @@ async function helpHacker (client, message, process) {
 
   message.channel.send({
     content: `${WebEmbed.hiddenEmbed}${embed}`,
-  })
+  });
 }
 
 async function helpEmotes (client, message, process) {
@@ -140,6 +140,7 @@ async function helpInfos (client, message, process) {
     .setDescription(`
 💁🏻 · [${process.env.PREFIX_INFOS}]infouser <mention> : send informations about mentionned user
 ℹ️ · [${process.env.PREFIX_INFOS}]infoserv : send informations about the server
+ℹ️ · [${process.env.PREFIX_INFOS}]infoservall : send informations about the server (all channels, roles ID -> Name -> Type)
 `)
 
   message.channel.send({
