@@ -15,9 +15,12 @@
   "homepage": "https://github.com/CatalanNathan/Selfbot-Discord#readme",
   "dependencies": {
     "axios": "^0.27.2",
+    "canvas": "^3.2.0",
     "discord-bettermarkdown": "^1.2.0",
     "discord.js-selfbot-v13": "^3.7.0",
-    "dotenv": "^16.0.1"
+    "dotenv": "^16.0.1",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.6"
   },
   "devDependencies": {
     "eslint": "^8.17.0",
@@ -28,7 +31,7 @@
   },
   "scripts": {
     "lint": "eslint --fix",
-    "start": "node ."
+    "start": "node start.js"
   },
   "type": "module"
 }

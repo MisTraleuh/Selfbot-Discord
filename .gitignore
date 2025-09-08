@@ -1,2 +1,5 @@
 .env
 node_modules
+databases/*
+charts/*
+!.gitkeep

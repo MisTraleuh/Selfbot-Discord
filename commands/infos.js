@@ -8,35 +8,25 @@
 import { WebEmbed } from 'discord.js-selfbot-v13'
 import Discord from 'discord.js'
 import dotenv from 'dotenv'
+import ChartGenerator from './class/chartGenerator.js'
+
 dotenv.config()
 
-async function infoUser (client, message, process) {
+const chartGen = new ChartGenerator()
+async function infoUser (client, message, process, presenceDB) {
   const user = message.mentions.users.first()
   
   if (!user) { return message.channel.send('You must mention a user') }
 
   const username = user.username
-  const discriminator = user.discriminator
-  const id = user.id
-  const createdAt = user.createdAt.toLocaleString()
-  const mutualGuilds = client.guilds.cache.filter(guild => guild.members.cache.has(user.id)).map(guild => guild.name).join(', ')
 
-  let messageToSend = `
-📝 · Username : ${username}
-📝 · Discriminator : ${discriminator}
-📝 · ID : ${id}
-📝 · Created at : ${createdAt}
-🫂 · Mutual Guild : ${mutualGuilds ? mutualGuilds : 'None'}
-    `
+  const userStats = await presenceDB.getUserConnectionStats(user.id, 30)
+  const connectionHistory = await presenceDB.getConnectionHistory(user.id, 10)
 
-  const embed = new WebEmbed()
-    .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL() }) 
-    .setTitle('🔎 Informations about the user 🔎')
-    .setColor('#FF69B4')
-    .setDescription(messageToSend)
+  const chart = await chartGen.generateUserStatsChart(username, userStats, connectionHistory)
 
   message.channel.send({
-    content: `${WebEmbed.hiddenEmbed}${embed}`,
+    files: chart.url ? [chart.url] : [],
   })
 }
 
@@ -146,14 +136,14 @@ const tests = [
   }
 ]
 
-export default async function PREFIX_INFOS (client, message, process) {
+export default async function PREFIX_INFOS (client, message, process, presenceDB) {
   if (message.content.startsWith(`${process.env.PREFIX_INFOS}`)) {
     const args = message.content.replace(`${process.env.PREFIX_INFOS}`, '')
 
     tests.filter(a => a.test(args))
       .forEach(async (a) => {
         await message.delete()
-        await a.run(client, message, process);
+        await a.run(client, message, process, presenceDB);
       })
   }
 }
