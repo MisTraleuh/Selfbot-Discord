@@ -13,6 +13,7 @@ import ChartGenerator from './class/chartGenerator.js'
 dotenv.config()
 
 const chartGen = new ChartGenerator()
+
 async function infoUser (client, message, process, presenceDB) {
   const user = message.mentions.users.first()
   
@@ -26,7 +27,10 @@ async function infoUser (client, message, process, presenceDB) {
   const chart = await chartGen.generateUserStatsChart(username, userStats, connectionHistory)
 
   message.channel.send({
-    files: chart.url ? [chart.url] : [],
+    files: [{
+      attachment: chart.buffer,
+      name: `chart_${username}.png`
+    }]
   })
 }
 

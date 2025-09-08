@@ -107,14 +107,43 @@ async function clearme (client, message, process) {
 
   await message.delete()
 
-  if (!args[1] || isNaN(Number.parseInt(args[1]))) { return message.channel.send('❌ Please indicate a number of messages to delete.') }
+  if (!args[1] || isNaN(Number.parseInt(args[1]))) { 
+    return message.channel.send('❌ Please indicate a number of messages to delete.') 
+  }
 
-  if (parseInt(args[1]) > 100) { return message.channel.send('❌ You can only delete up to 100 messages at a time.') }
-  if (parseInt(args[1]) < 1) { return message.channel.send('❌ You must delete at least 1 message.') }
+  if (parseInt(args[1]) > 100) { 
+    return message.channel.send('❌ You can only delete up to 100 messages at a time.') 
+  }
+  
+  if (parseInt(args[1]) < 1) { 
+    return message.channel.send('❌ You must delete at least 1 message.') 
+  }
 
-  await (await message.channel.messages.fetch({ limit: (parseInt(args[1])) })).filter((msg) => msg.author.id === client.user.id).forEach(m => m.delete())
-  const allIsDelete = await message.channel.send(`✅ Deletion of ${args[1]} messages.`)
-  setTimeout(() => { allIsDelete.delete() }, 2500)
+  try {
+    const messages = await message.channel.messages.fetch({ limit: parseInt(args[1]) })
+    
+    const myDeletableMessages = messages.filter(msg => 
+      msg.author.id === client.user.id && 
+      msg.deletable &&
+      msg.type === 'DEFAULT'
+    )
+
+    let deletedCount = 0
+    
+    for (const msg of myDeletableMessages.values()) {
+      try {
+        await msg.delete()
+        deletedCount++
+      } catch (error) {}
+    }
+
+    const allIsDelete = await message.channel.send(`✅ Deletion of ${deletedCount} messages.`)
+    setTimeout(() => { allIsDelete.delete() }, 2500)
+    
+  } catch (error) {
+    console.error('❌ Erreur lors de la suppression:', error)
+    message.channel.send('❌ An error occurred while deleting messages.')
+  }
 }
 
 const tests = [
