@@ -49,6 +49,8 @@ PREFIX_INFOS=?
 PREFIX_ADMIN=@
 ```
 
+### 🔑 Get your discord token
+
 - To have your token connected to [discord.com](https://discord.com/)
 - Press ``F12`` and enable the ``Toggle Device Toolbar``
 - Go to the ``Console`` tab and paste the following code :
@@ -59,6 +61,14 @@ copy(JSON.parse(document.body.appendChild(iframe).contentWindow.localStorage.tok
 ```
 
 Once this is done your **token** is copied into your __paper-press__.
+
+### 🔑 Get your groq api key (for the admin command)
+
+- Go to [groq](https://groq.com/)
+- Login with your discord account
+- Go to the ``API`` tab
+- Copy your api key
+- Paste it in your `.env` file
 
 ## ✔️ Start
 

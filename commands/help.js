@@ -18,13 +18,14 @@ async function helpNormal (client, message, process) {
     .setColor('#FF69B4')
     .setDescription(`
 Here the avaible command:
-🤖 · [${process.env.PREFIX_NORMAL}]help : displays the current prefixes
-💷 · [${process.env.PREFIX_CRYPTO}]help : displays crypto commands
-😂 · [${process.env.PREFIX_FUN}]help : displays fun commands
-🥷 · [${process.env.PREFIX_HACKER}]help : displays hacker commands
-😃 · [${process.env.PREFIX_EMOTES}]help : displays emotes commands
-🫂 · [${process.env.PREFIX_PERSO}]help : displays perso commands
-🚀 · [${process.env.PREFIX_INFOS}]help : displays infos commands
+🤖 · ${process.env.PREFIX_NORMAL}help
+💷 · ${process.env.PREFIX_CRYPTO}help : displays crypto commands
+😂 · ${process.env.PREFIX_FUN}help : displays fun commands
+🥷 · ${process.env.PREFIX_HACKER}help : displays hacker commands
+😃 · ${process.env.PREFIX_EMOTES}help : displays emotes commands
+🫂 · ${process.env.PREFIX_PERSO}help : displays perso commands
+🚀 · ${process.env.PREFIX_INFOS}help : displays infos commands
+🤖 · ${process.env.PREFIX_ADMIN}help : displays admin commands
   `)
 
   message.channel.send({
@@ -193,6 +194,10 @@ const tests = [
   {
     test: a => a == `${process.env.PREFIX_INFOS}help`,
     run: helpInfos,
+  },
+  {
+    test: a => a == `${process.env.PREFIX_ADMIN}help`,
+    run: helpAdmin,
   },
 ]
 
