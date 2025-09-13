@@ -47,6 +47,7 @@ PREFIX_EMOTES=$
 PREFIX_PERSO=%
 PREFIX_INFOS=?
 PREFIX_ADMIN=@
+GROQ_API_KEY=<your groq api key>
 ```
 
 ### 🔑 Get your discord token
